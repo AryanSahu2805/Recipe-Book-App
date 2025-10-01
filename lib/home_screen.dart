@@ -91,22 +91,59 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Recipe Book'),
+        title: const Text('My Recipe Book'),
+        centerTitle: true,
+        elevation: 2,
       ),
       body: ListView.builder(
+        padding: const EdgeInsets.all(8.0),
         itemCount: recipes.length,
         itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(recipes[index].name),
-            trailing: const Icon(Icons.arrow_forward_ios),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => DetailsScreen(recipe: recipes[index]),
+          return Card(
+            margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+            elevation: 2,
+            child: ListTile(
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 16.0,
+                vertical: 8.0,
+              ),
+              leading: CircleAvatar(
+                backgroundColor: Colors.blue,
+                child: Text(
+                  recipes[index].name[0],
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              );
-            },
+              ),
+              title: Text(
+                recipes[index].name,
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              subtitle: Text(
+                '${recipes[index].ingredients.length} ingredients',
+                style: TextStyle(
+                  color: Colors.grey[600],
+                  fontSize: 14,
+                ),
+              ),
+              trailing: const Icon(
+                Icons.arrow_forward_ios,
+                size: 16,
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DetailsScreen(recipe: recipes[index]),
+                  ),
+                );
+              },
+            ),
           );
         },
       ),
